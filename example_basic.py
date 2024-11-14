@@ -7,7 +7,7 @@ load_dotenv(dotenv_path=".env")
 client = OpenAI()
 
 class CalendarEvent(BaseModel):
-    name: str
+    event_name: str
     date: str
     participants: list[str]
     
@@ -17,7 +17,7 @@ completion_with_json_output = client.chat.completions.create(
     # setting messages
     messages=[
         {"role": "system", "content": "Extract the event information."},
-        {"role": "user", "content": "Alice and Bob are going to a science fair on Friday. Return the event information in JSON format."},
+        {"role": "user", "content": "Joko, Anwar, and Rian are going to a workshop event called 'Friday Booster' on 15 November 2024."},
     ],
     # setting response format
     response_format = {"type": "json_object"},
@@ -33,7 +33,7 @@ completion_with_structured_format = client.beta.chat.completions.parse(
     model="gpt-4o-2024-08-06",
     messages=[
         {"role": "system", "content": "Extract the event information."},
-        {"role": "user", "content": "Alice and Bob are going to a science fair on Friday."},
+        {"role": "user", "content": "Joko, Anwar, and Rian are going to a workshop event called 'Friday Booster' on 15 November 2024."},
     ],
     response_format = CalendarEvent
 )
